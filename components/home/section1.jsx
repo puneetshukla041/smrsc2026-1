@@ -2,11 +2,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useSpring, useMotionValue } from "framer-motion";
-
-/**
- * Professional Hero Component for SMRSC 2026.
- * Typography: Manrope (manual) and Inter.
- */
+// Importing your animated background component
+import Background from "@/components/bg"; 
 
 export default function App() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -76,10 +73,11 @@ export default function App() {
       onMouseMove={handleMouseMove}
       className="relative w-full h-screen min-h-[600px] overflow-hidden flex flex-col items-center bg-black selection:bg-white/20 px-4 md:px-6"
     >
-      {/* Background Ambience */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03)_0%,transparent_70%)]" />
-        <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[80%] h-[40%] bg-white/5 blur-[150px]" />
+      {/* REPLACED: The old background divs have been removed.
+         ADDED: Your custom animated Background component.
+      */}
+      <div className="absolute inset-0 z-0">
+        <Background />
       </div>
 
       <motion.div variants={uiContainerVariants} className="relative z-10 w-full h-full flex flex-col items-center">
@@ -94,8 +92,10 @@ export default function App() {
 
         {/* Footer Content */}
         <div className="mt-auto pb-8 md:pb-16 flex flex-col items-center text-center w-full max-w-5xl z-30 px-2 sm:px-4">
-          <motion.div variants={fadeInUpVariants} className="w-full bg-white/[0.04] backdrop-blur-[40px] border border-white/20 rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col items-center">
-            
+          <motion.div 
+            variants={fadeInUpVariants} 
+            className="w-full bg-transparent backdrop-blur-[24px] border border-white/[0.08] rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] flex flex-col items-center"
+          >
             <motion.p
               className="mb-6 px-4 text-sm md:text-base lg:text-lg"
               style={{
@@ -131,7 +131,6 @@ export default function App() {
 }
 
 function TimeUnit({ value, label, progress }) {
-  // Smaller radius for mobile (32) vs desktop (42)
   const [radius, setRadius] = useState(42);
   
   useEffect(() => {
@@ -152,7 +151,7 @@ function TimeUnit({ value, label, progress }) {
       <div className="relative flex flex-col items-center justify-center w-16 h-20 sm:w-20 sm:h-24 md:w-28 md:h-36">
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <svg className="w-full h-full -rotate-90 overflow-visible">
-            <circle cx="50%" cy="50%" r={radius} className="stroke-white/10 fill-none" strokeWidth="1" />
+            <circle cx="50%" cy="50%" r={radius} className="stroke-white/[0.05] fill-none" strokeWidth="1" />
             <motion.circle
               cx="50%" cy="50%" r={radius} className="stroke-[#CE921B] fill-none" strokeWidth="2"
               strokeDasharray={circumference} strokeLinecap="round"
