@@ -13,7 +13,12 @@ const navLinks = [
 
 /**
  * Professional Header Component
- * Updated: Specific typography for navigation links (Manrope, 14px, 32px leading).
+ * Updated with specific spacing:
+ * - Left padding (Edge to Logo): 270px
+ * - Right padding (Edge to Register): 270px
+ * - Gap between Logo and "About SMRSC": 270px
+ * - Gap between "Contact Us" and Action buttons: 270px
+ * - Nav links are centered in the remaining space.
  */
 export default function Header() {
   const [isVisible, setIsVisible] = useState(true);
@@ -43,8 +48,8 @@ export default function Header() {
     document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
   }, [isMenuOpen]);
 
-  // Navigation style updated per requirements
-  const navTextStyle = "text-[#E6E6E6] font-medium text-[14px] leading-[32px] font-['Manrope',_sans-serif] hover:text-white transition-colors cursor-pointer";
+  // Navigation style
+  const navTextStyle = "text-[#E6E6E6] font-medium text-[14px] leading-[32px] font-['Manrope',_sans-serif] hover:text-white transition-colors cursor-pointer whitespace-nowrap";
 
   return (
     <>
@@ -55,16 +60,18 @@ export default function Header() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
+            style={{ backdropFilter: "blur(20px)" }}
+            className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 flex justify-center items-center ${
               lastScrollY > 50 || isMenuOpen 
-                ? "bg-[#02091A]/95 backdrop-blur-md border-b border-white/10 py-3" 
-                : "bg-transparent py-5"
+                ? "bg-[#02091A]/80 border-b border-white/10" 
+                : "bg-transparent"
             }`}
           >
-            <div className="max-w-[1536px] mx-auto px-8 flex items-center justify-between">
+            {/* 1920px Container with 270px side padding */}
+            <div className="w-full max-w-[1920px] px-6 lg:px-[270px] py-4 flex items-center justify-between">
               
-              {/* Logo Section */}
-              <div className="flex-shrink-0">
+              {/* Logo - Fixed at 270px from left edge */}
+              <div className="flex-shrink-0 flex items-center">
                 <a href="/" className="cursor-pointer block">
                   <img
                     src="/logos/header.png" 
@@ -78,8 +85,8 @@ export default function Header() {
                 </a>
               </div>
 
-              {/* Desktop Navigation */}
-              <nav className="hidden lg:flex items-center gap-x-8">
+              {/* Navigation - 270px gap from Logo and 270px gap from Actions */}
+              <nav className="hidden lg:flex items-center gap-x-8 mx-[270px] flex-1 justify-center">
                 {navLinks.map((link) => (
                   <a key={link.name} href={link.href} className={navTextStyle}>
                     {link.name}
@@ -87,17 +94,17 @@ export default function Header() {
                 ))}
               </nav>
 
-              {/* Action Buttons */}
-              <div className="flex items-center gap-x-6">
-                <button className="hidden sm:block text-[#E6E6E6] hover:text-white transition-colors cursor-pointer outline-none">
+              {/* Action Buttons - Fixed at 270px from right edge */}
+              <div className="hidden lg:flex items-center gap-x-6 flex-shrink-0">
+                <button className="text-[#E6E6E6] hover:text-white transition-colors cursor-pointer outline-none">
                   <Search size={18} strokeWidth={2.5} />
                 </button>
 
                 <a
                   href="#register"
                   className="
-                    hidden md:inline-flex items-center justify-center
-                    px-6 py-2 rounded-full
+                    inline-flex items-center justify-center
+                    px-8 py-2 rounded-full
                     border border-white/30
                     bg-transparent text-white
                     text-[13px] font-semibold tracking-wider uppercase
@@ -105,15 +112,21 @@ export default function Header() {
                     hover:bg-[#CE921B] hover:border-[#CE921B]
                     active:bg-[#b37e17]
                     cursor-pointer
+                    whitespace-nowrap
                   "
                 >
-                  Register Now
+                  REGISTER
                 </a>
+              </div>
 
-                {/* Mobile Menu Icon */}
+              {/* Mobile Elements */}
+              <div className="lg:hidden flex items-center gap-4">
+                <button className="text-[#E6E6E6] hover:text-white">
+                  <Search size={18} />
+                </button>
                 <button 
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="lg:hidden text-white cursor-pointer p-1"
+                  className="text-white cursor-pointer p-1"
                 >
                   {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
@@ -123,7 +136,7 @@ export default function Header() {
         )}
       </AnimatePresence>
 
-      {/* Mobile Overlay Navigation */}
+      {/* Mobile Overlay */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -146,20 +159,13 @@ export default function Header() {
                   {link.name}
                 </motion.a>
               ))}
-              
               <div className="pt-10 mt-4 border-t border-white/10">
                 <a
                   href="#register"
                   onClick={() => setIsMenuOpen(false)}
-                  className="
-                    flex items-center justify-center w-full py-4 rounded-full
-                    border border-white/20 bg-transparent text-white
-                    text-sm font-bold uppercase tracking-widest
-                    hover:bg-[#CE921B] hover:border-[#CE921B]
-                    transition-all duration-300
-                  "
+                  className="flex items-center justify-center w-full py-4 rounded-full border border-white/20 bg-transparent text-white text-sm font-bold uppercase tracking-widest hover:bg-[#CE921B] hover:border-[#CE921B] transition-all duration-300"
                 >
-                  Register Now
+                  REGISTER
                 </a>
               </div>
             </nav>
