@@ -38,14 +38,13 @@ const Section3 = () => {
 
   // --- Animation Configurations ---
 
-  // 1. Sequence Animation for the Page Load
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3, // Delay between each item appearing
-        delayChildren: 0.2,   // Initial delay before sequence starts
+        staggerChildren: 0.3,
+        delayChildren: 0.2,
       }
     }
   };
@@ -59,7 +58,6 @@ const Section3 = () => {
     }
   };
 
-  // 2. Spring Physics for Carousel Cards
   const springTransition = {
     type: "spring",
     stiffness: 260,
@@ -132,7 +130,6 @@ const Section3 = () => {
     }
   };
 
-  // 3. Text Popup for Active Card
   const textVariants = {
     center: {
       y: 0,
@@ -162,8 +159,11 @@ const Section3 = () => {
 
   const alphabetStyle = {
     color: '#E1C583',
-    fontFamily: 'Roba, sans-serif',
+    fontFamily: 'Roba, sans-serif', // This will now work due to the <style> tag below
     fontSize: '500px',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: '56px', /* 11.2% */
     textTransform: 'uppercase',
     filter: 'blur(5.45px)',
     userSelect: 'none',
@@ -214,18 +214,31 @@ const Section3 = () => {
       className="relative w-full overflow-hidden bg-black"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-10%" }} // Starts animation when 10% of section is visible
+      viewport={{ once: true, margin: "-10%" }}
       variants={containerVariants}
     >
-      
+      {/* Font Injection for Roba from public/fonts */}
+      <style>{`
+        @font-face {
+          font-family: 'Roba';
+          src: url('/fonts/Roba-Regular.ttf') format('truetype');
+          font-weight: normal;
+          font-style: normal;
+        }
+      `}</style>
+
       {/* 1. Header & Background Effects */}
       <div className="relative w-full min-h-screen flex flex-col items-center justify-center px-4 pt-20 pb-10">
         
         {/* Background Elements (Glow & Letter O) */}
         <div className="absolute left-0 top-0 w-full h-full pointer-events-none">
           <div style={leftGlowStyle} aria-hidden="true" />
+          
           <motion.div 
-            variants={itemVariants} // Also animates in nicely
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 0.8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
             style={alphabetStyle} 
             className="absolute left-[-150px] top-1/2 -translate-y-1/2 z-0"
           >
@@ -257,7 +270,6 @@ const Section3 = () => {
               <motion.line 
                 x1="0.5" x2="0.5" y1="0" y2="219" 
                 stroke="url(#lineGradient)" strokeWidth="2"
-                // The line drawing animation runs independently once the parent motion.div appears
                 initial={{ pathLength: 0 }}
                 whileInView={{ pathLength: 1 }}
                 viewport={{ once: true }}

@@ -48,7 +48,7 @@ const Section1 = () => {
           className="relative"
         >
           <Image
-            src="/images/home/section1/image1.png"
+            src="/images/home/image1.png"
             alt="SMRSC 2026 Hero"
             fill
             priority
