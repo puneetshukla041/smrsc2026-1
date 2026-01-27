@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Search, Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from 'next/link'; // Recommended for Next.js internal navigation
 
 const navLinks = [
   { 
@@ -24,11 +25,13 @@ const navLinks = [
   },
   { 
     name: "Visit", 
-    href: "/visit", 
+    // Pointing to /visit/venue as the default because /visit (root) might not have page.jsx
+    href: "/visit/venue", 
     subLinks: [
-      { name: "About the Venue", href: "/visit#venue" },
-      { name: "Nearby Hotels", href: "/visit#hotels" },
-      { name: "Places to Visit", href: "/visit#tourism" },
+      // Updated these to match your folder structure
+      { name: "About the Venue", href: "/visit/venue" },
+      { name: "Nearby Hotels", href: "/visit/hotels" },
+      { name: "Places to Visit", href: "/visit/places" },
     ]
   },
   { 
@@ -125,7 +128,6 @@ export default function Header() {
             exit={{ y: -100, opacity: 0 }}
             transition={menuSlide} 
             style={{ backdropFilter: "blur(20px)" }}
-            // FIXED: Changed z-[100] to z-[110] so it stays ON TOP of the mobile menu overlay
             className={`fixed top-0 left-0 w-full z-[110] transition-all duration-500 flex justify-center items-center ${
               lastScrollY > 50 || isMenuOpen 
                 ? "bg-[#02091A]/80 border-b border-white/10" 
@@ -136,7 +138,7 @@ export default function Header() {
               
               {/* Logo */}
               <div className="flex-shrink-0 flex items-center">
-                <a href="/" className="cursor-pointer block relative z-[120]">
+                <Link href="/" className="cursor-pointer block relative z-[120]">
                   <motion.img
                     whileHover={{ scale: 1.05 }}
                     transition={softSpring}
@@ -148,7 +150,7 @@ export default function Header() {
                       target.src = "https://via.placeholder.com/110x30/02091A/FFFFFF?text=SMRSC+2026";
                     }}
                   />
-                </a>
+                </Link>
               </div>
 
               {/* Desktop Navigation */}
@@ -160,7 +162,7 @@ export default function Header() {
                     onMouseEnter={() => setHoveredLink(link.name)}
                     onMouseLeave={() => setHoveredLink(null)}
                   >
-                    <a href={link.href} className={`${navTextStyle} relative flex items-center gap-1`}>
+                    <Link href={link.href} className={`${navTextStyle} relative flex items-center gap-1`}>
                       {link.name}
                       {/* Smooth Gradient Underline Effect */}
                       {hoveredLink === link.name && (
@@ -176,7 +178,7 @@ export default function Header() {
                           }}
                         />
                       )}
-                    </a>
+                    </Link>
 
                     {/* Dropdown Menu */}
                     <AnimatePresence>
@@ -200,13 +202,13 @@ export default function Header() {
                             "
                           >
                             {link.subLinks.map((subLink) => (
-                              <a
+                              <Link
                                 key={subLink.name}
                                 href={subLink.href}
                                 className="whitespace-nowrap text-sm text-[#E6E6E6] hover:text-white hover:bg-white/5 w-full text-center py-1.5 rounded-md transition-colors font-['Manrope',_sans-serif]"
                               >
                                 {subLink.name}
-                              </a>
+                              </Link>
                             ))}
                           </div>
                         </motion.div>
@@ -247,7 +249,6 @@ export default function Header() {
               </div>
 
               {/* Mobile Toggle Button */}
-              {/* Ensure relative z-index is high enough to be clickable */}
               <div className="lg:hidden flex items-center gap-4 relative z-[120]">
                 <button className="text-[#E6E6E6] hover:text-white">
                   <Search size={18} />
@@ -272,7 +273,6 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            // FIXED: Set z-[100] (lower than header's z-[110]) so header stays visible
             className="fixed inset-0 z-[100] bg-[#02091A]/95 backdrop-blur-xl flex flex-col pt-24 px-6 pb-6"
           >
             <motion.nav 
@@ -292,7 +292,7 @@ export default function Header() {
                       className="flex items-center justify-between py-2 group cursor-pointer"
                       onClick={() => link.subLinks ? toggleCategory(link.name) : setIsMenuOpen(false)}
                     >
-                      <a 
+                      <Link 
                         href={link.href} 
                         onClick={(e) => {
                             if(link.subLinks) e.preventDefault();
@@ -302,7 +302,7 @@ export default function Header() {
                         }`}
                       >
                         {link.name}
-                      </a>
+                      </Link>
                       
                       {/* Rotating Chevron for Sublinks */}
                       {link.subLinks && (
@@ -330,17 +330,20 @@ export default function Header() {
                         >
                           <div className="flex flex-col gap-3 py-3 pl-2">
                             {link.subLinks.map((sub, subIdx) => (
-                                <motion.a
+                                <motion.div
                                   key={sub.name}
-                                  href={sub.href}
                                   initial={{ x: -10, opacity: 0 }}
                                   animate={{ x: 0, opacity: 1 }}
                                   transition={{ delay: subIdx * 0.05 }}
-                                  onClick={() => setIsMenuOpen(false)}
-                                  className="text-base text-white/60 hover:text-white font-sans pl-4 border-l-2 border-white/10 hover:border-[#CE921B] transition-all"
                                 >
-                                  {sub.name}
-                                </motion.a>
+                                  <Link
+                                    href={sub.href}
+                                    onClick={() => setIsMenuOpen(false)}
+                                    className="block text-base text-white/60 hover:text-white font-sans pl-4 border-l-2 border-white/10 hover:border-[#CE921B] transition-all"
+                                  >
+                                    {sub.name}
+                                  </Link>
+                                </motion.div>
                             ))}
                           </div>
                         </motion.div>
