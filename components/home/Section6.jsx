@@ -35,35 +35,30 @@ const Section6 = () => {
   };
 
   // --- Styles ---
-  const subHeadingStyle = {
-    width: '100%', 
-    height: '47px',
+  // Note: Font sizes/Dimensions moved to className for responsiveness. 
+  // Base styles kept for font-family and colors.
+
+  const subHeadingBaseStyle = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     color: '#E6E6E6',
     fontFamily: "'Manrope', sans-serif",
-    fontSize: '32px',
-    fontStyle: 'normal',
     fontWeight: 500,
-    lineHeight: '32px',
   };
 
-  const mainHeadingStyle = {
+  const mainHeadingBaseStyle = {
     color: '#E3F5F6',
     fontFamily: '"Blauer Nue", sans-serif',
-    fontSize: '64px',
-    fontStyle: 'normal',
     fontWeight: 600,
-    lineHeight: '86px',
     textTransform: 'uppercase',
   };
 
   return (
     <section 
       id="section6"
-      // UPDATED: 'justify-between' helps distribute space, but 'mt-auto' on the image does the heavy lifting
-      className="min-h-[150vh] w-full bg-[#020617] flex flex-col items-center py-20 px-6 relative overflow-hidden"
+      // UPDATED: min-h-screen for mobile, md:min-h-[150vh] for desktop
+      className="min-h-screen md:min-h-[150vh] w-full bg-[#020617] flex flex-col items-center py-10 md:py-20 px-6 relative overflow-hidden"
     >
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500&display=swap');
@@ -86,12 +81,22 @@ const Section6 = () => {
       >
         
         {/* 1. HEADINGS (Aligned Top) */}
-        <div className="max-w-[1380px] w-full flex flex-col items-start gap-2 mt-10">
-          <motion.div variants={textVariants} style={subHeadingStyle}>
+        <div className="max-w-[1380px] w-full flex flex-col items-start gap-2 mt-4 md:mt-10">
+          <motion.div 
+            variants={textVariants} 
+            style={subHeadingBaseStyle}
+            // UPDATED: Mobile text-xl, Desktop text-[32px]
+            className="w-full h-auto md:h-[47px] text-xl md:text-[32px] leading-relaxed md:leading-[32px]"
+          >
             Last year we inspired
           </motion.div>
 
-          <motion.h1 variants={textVariants} style={mainHeadingStyle}>
+          <motion.h1 
+            variants={textVariants} 
+            style={mainHeadingBaseStyle}
+            // UPDATED: Mobile text-4xl, Desktop text-[64px]
+            className="text-4xl leading-tight md:text-[64px] md:leading-[86px]"
+          >
             THIS YEAR, WE TRANSFORM
           </motion.h1>
         </div>
@@ -100,20 +105,21 @@ const Section6 = () => {
         {/* 'mt-auto' forces this div to the bottom of the flex container */}
         <motion.div
           variants={imageVariants}
-          className="mt-auto" 
+          className="mt-auto pt-10 md:pt-0" 
           style={{
-            width: '1380px',
-            height: '693px',
-            borderRadius: '40px',
             overflow: 'hidden',
-            // No absolute positioning here, just standard flow
           }}
         >
-          <img 
-            src="/images/home/section6/image1.png" 
-            alt="SMRSC 2026 Transformation"
-            className="w-full h-full object-cover"
-          />
+          {/* UPDATED: Wrapper div for responsive sizing */}
+          <div 
+             className="relative w-full h-[300px] md:w-[1380px] md:h-[693px] rounded-[20px] md:rounded-[40px] overflow-hidden"
+          >
+            <img 
+              src="/images/home/section6/image1.png" 
+              alt="SMRSC 2026 Transformation"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </motion.div>
 
       </motion.div>

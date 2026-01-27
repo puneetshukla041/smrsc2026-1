@@ -151,19 +151,17 @@ const Section3 = () => {
     color: '#E3F5F6',
     textAlign: 'center',
     fontFamily: '"Blauer Nue", sans-serif',
-    fontSize: '64px',
     fontWeight: '600',
-    lineHeight: '72px',
+    lineHeight: '1.2',
     maxWidth: '900px',
   };
 
   const alphabetStyle = {
     color: '#E1C583',
-    fontFamily: 'Roba, sans-serif', // This will now work due to the <style> tag below
-    fontSize: '500px',
+    fontFamily: 'Roba, sans-serif',
     fontStyle: 'normal',
     fontWeight: '400',
-    lineHeight: '56px', /* 11.2% */
+    lineHeight: '56px',
     textTransform: 'uppercase',
     filter: 'blur(5.45px)',
     userSelect: 'none',
@@ -191,7 +189,7 @@ const Section3 = () => {
     fontWeight: '500',
     lineHeight: '2.25rem', 
     position: 'absolute',
-    top: '-50px',
+    top: '-40px',
     left: '0px',
     zIndex: 40,
   };
@@ -207,7 +205,7 @@ const Section3 = () => {
     backdropFilter: 'blur(4px)', 
   };
 
-  const arrowBtnClass = "flex w-[48px] h-[48px] p-[10px] justify-center items-center gap-[10px] rounded-full bg-white/5 hover:bg-white/10 transition-all border border-white/10 shrink-0 z-50 active:scale-95 cursor-pointer";
+  const arrowBtnClass = "flex w-[40px] md:w-[48px] h-[40px] md:h-[48px] p-[8px] md:p-[10px] justify-center items-center gap-[10px] rounded-full bg-white/5 hover:bg-white/10 transition-all border border-white/10 shrink-0 z-50 active:scale-95 cursor-pointer";
 
   return (
     <motion.section 
@@ -217,7 +215,7 @@ const Section3 = () => {
       viewport={{ once: true, margin: "-10%" }}
       variants={containerVariants}
     >
-      {/* Font Injection for Roba from public/fonts */}
+      {/* Font Injection */}
       <style>{`
         @font-face {
           font-family: 'Roba';
@@ -228,9 +226,9 @@ const Section3 = () => {
       `}</style>
 
       {/* 1. Header & Background Effects */}
-      <div className="relative w-full min-h-screen flex flex-col items-center justify-center px-4 pt-20 pb-10">
+      <div className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 pt-10 md:pt-20 pb-10">
         
-        {/* Background Elements (Glow & Letter O) */}
+        {/* Background Elements */}
         <div className="absolute left-0 top-0 w-full h-full pointer-events-none">
           <div style={leftGlowStyle} aria-hidden="true" />
           
@@ -240,26 +238,26 @@ const Section3 = () => {
             viewport={{ once: true }}
             transition={{ duration: 1.5, ease: "easeOut" }}
             style={alphabetStyle} 
-            className="absolute left-[-150px] top-1/2 -translate-y-1/2 z-0"
+            className="absolute left-[-100px] md:left-[-150px] top-1/2 -translate-y-1/2 z-0 text-[250px] md:text-[500px]"
           >
             O
           </motion.div>
         </div>
 
-        <div className="relative z-10 flex flex-col items-center space-y-12">
+        <div className="relative z-10 flex flex-col items-center space-y-8 md:space-y-12 w-full">
           
-          {/* SEQUENCE ITEM 1: First Heading */}
+          {/* First Heading */}
           <motion.h2 
             variants={itemVariants}
             style={textStyle} 
-            className="text-4xl md:text-6xl"
+            className="text-3xl md:text-6xl px-4"
           >
             From landmark moments in 2024 and 2025
           </motion.h2>
           
-          {/* SEQUENCE ITEM 2: First Line */}
-          <motion.div variants={itemVariants} className="flex justify-center items-center py-4">
-            <svg width="2" height="219" viewBox="0 0 1 219" fill="none" className="overflow-visible">
+          {/* First Line */}
+          <motion.div variants={itemVariants} className="flex justify-center items-center py-2 md:py-4">
+            <svg width="2" viewBox="0 0 1 219" fill="none" className="overflow-visible h-[120px] md:h-[219px]">
               <defs>
                 <linearGradient id="lineGradient" x1="0.5" y1="0" x2="0.5" y2="219" gradientUnits="userSpaceOnUse">
                   <stop stopColor="#634B19" />
@@ -278,18 +276,18 @@ const Section3 = () => {
             </svg>
           </motion.div>
 
-          {/* SEQUENCE ITEM 3: Second Heading */}
+          {/* Second Heading */}
           <motion.h2 
             variants={itemVariants}
             style={textStyle} 
-            className="text-4xl md:text-6xl"
+            className="text-3xl md:text-6xl px-4"
           >
             Now, see what unfolds in 2026
           </motion.h2>
 
-          {/* SEQUENCE ITEM 4: Second Line */}
-          <motion.div variants={itemVariants} className="flex justify-center items-center py-4">
-            <svg width="2" height="219" viewBox="0 0 1 219" fill="none" className="overflow-visible">
+          {/* Second Line */}
+          <motion.div variants={itemVariants} className="flex justify-center items-center py-2 md:py-4">
+            <svg width="2" viewBox="0 0 1 219" fill="none" className="overflow-visible h-[120px] md:h-[219px]">
               <motion.line 
                 x1="0.5" x2="0.5" y1="0" y2="219" 
                 stroke="url(#lineGradient)" strokeWidth="2"
@@ -303,15 +301,15 @@ const Section3 = () => {
         </div>
       </div>
 
-      {/* SEQUENCE ITEM 5: Carousel Section */}
+      {/* Carousel Section */}
       <motion.div 
         variants={itemVariants}
-        className="relative w-full h-screen flex flex-col items-center justify-start pb-20 overflow-visible"
+        className="relative w-full min-h-[500px] md:h-screen flex flex-col items-center justify-start pb-20 overflow-visible"
       >
-        <div className="relative flex items-center justify-center w-full overflow-visible px-10">
+        <div className="relative flex items-center justify-center w-full overflow-visible px-4 md:px-10">
           
           {/* Left Arrow */}
-          <div className="absolute left-10 z-[60]">
+          <div className="absolute left-2 md:left-10 z-[60]">
             <button onClick={() => paginate(-1)} className={arrowBtnClass}>
               <ChevronLeft className="text-white w-full h-full" />
             </button>
@@ -319,8 +317,7 @@ const Section3 = () => {
 
           {/* Slider Frame */}
           <div 
-            className="relative overflow-visible shrink-0"
-            style={{ width: '1380px', height: '720px' }}
+            className="relative overflow-visible shrink-0 w-full max-w-[340px] md:max-w-[1380px] h-[450px] md:h-[720px]"
           >
             {images.map((img, index) => {
               const position = getPosition(index);
@@ -339,12 +336,13 @@ const Section3 = () => {
                   <motion.div 
                     variants={textVariants} 
                     style={cardLabelStyle}
+                    className="text-sm md:text-base -top-[30px] md:-top-[50px]"
                   >
                     {labelText}
                   </motion.div>
 
                   {/* Inner Container */}
-                  <div className="w-full h-full rounded-[40px] overflow-hidden bg-[#0a0a0a] border border-white/10 shadow-[0_0_60px_rgba(0,0,0,0.6)] relative">
+                  <div className="w-full h-full rounded-[24px] md:rounded-[40px] overflow-hidden bg-[#0a0a0a] border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.6)] relative">
                     <img 
                       src={img.src} 
                       alt={img.title}
@@ -358,7 +356,7 @@ const Section3 = () => {
           </div>
 
           {/* Right Arrow */}
-          <div className="absolute right-10 z-[60]">
+          <div className="absolute right-2 md:right-10 z-[60]">
             <button onClick={() => paginate(1)} className={arrowBtnClass}>
               <ChevronRight className="text-white w-full h-full" />
             </button>
@@ -366,13 +364,13 @@ const Section3 = () => {
         </div>
 
         {/* Pagination Indicators */}
-        <div className="mt-12 z-50" style={indicatorContainerStyle}>
+        <div className="mt-8 md:mt-12 z-50" style={indicatorContainerStyle}>
           {images.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setPage(idx)}
-              className={`h-2 transition-all duration-300 rounded-full cursor-pointer bg-white ${
-                imageIndex === idx ? "w-8" : "w-2 opacity-100"
+              className={`h-1.5 md:h-2 transition-all duration-300 rounded-full cursor-pointer bg-white ${
+                imageIndex === idx ? "w-6 md:w-8" : "w-1.5 md:w-2 opacity-50 md:opacity-100"
               }`}
             />
           ))}
